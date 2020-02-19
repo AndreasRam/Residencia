@@ -1,31 +1,60 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-    <h:body>
-        <h:form>
-            <p:menubar>
-                <p:submenu label="Residentes" >
-                    <p:menuitem value="Lista Residentes" url="lista_residentes.xhtml"/>
-                    <p:menuitem value="Agregar Residente" url="agregar_residente.xhtml"/>
-                </p:submenu>
-                <p:submenu label="Controles">
-                    <p:menuitem value="Administracion Medicamentos" url="#"/>
-                </p:submenu>                
-            </p:menubar>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="index.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-            <p:panel header="Residentes" style="width: 700px; margin: 0 auto; margin-top: 2rem">
-                <ui:repeat value="#{residentesManagedBean.residentes}" var="residente">
-                    <h3>#{residente.nombre_residente}</h3>
-                    <h3>#{residente.apoderado.nombre_apoderado}</h3>
-                    <h3>#{residente.precision.nombre_prevision}</h3>
-                </ui:repeat>
-            </p:panel>
-        </h:form>
-    </h:body>
-</html>
+    <ui:define name="contenido">
+
+        <h:panelGroup layout="block" class="ui-g">
+            <ui:repeat value="#{residentesManagedBean.residentes}" var="residente">
+                <h:panelGroup layout="block" class="ui-g-12 ui-md-6 ui-lg-4">
+
+                    <p:panel header="#{residente.nombre_residente}">
+                        <p:panelGrid columns="2" layout="grid">
+
+                            <p:outputLabel value="Rut"
+                                           style="color: black; font-weight: bold"/>
+                            <h:outputText value="#{residente.rut_residente}"/>
+                            
+                            <p:outputLabel value="Nacimiento"
+                                           style="color: black; font-weight: bold"/>
+                            <h:outputText value="#{residente.fecha_nacimiento.time}">
+                                <f:convertDateTime type="both"  dateStyle="long"/>
+                            </h:outputText>
+                            
+                            <p:outputLabel value="Ingreso"
+                                           style="color: black; font-weight: bold"/>
+                            <h:outputText value="#{residente.fecha_ingreso.time}">
+                                <f:convertDateTime type="both" dateStyle="long"/>
+                            </h:outputText>
+                            
+                            <p:outputLabel value="Prevision"
+                                           style="color: black; font-weight: bold"/>
+                            <h:outputText value="#{residente.precision.nombre_prevision}"/>
+                            
+                            <p:outputLabel value="Sexo"
+                                           style="color: black; font-weight: bold"/>
+                            <h:outputText value="#{residente.sexo}"/>
+                            
+                            <p:outputLabel value="Estado"
+                                           style="color: black; font-weight: bold"/>
+                            <h:outputText value="#{residente.estado}"/>
+                            
+                            <p:outputLabel value="Apoderado"
+                                           style="color: black; font-weight: bold"/>
+                            <h:outputText value="#{residente.apoderado.nombre_apoderado}"/>
+
+                        </p:panelGrid>
+                    </p:panel>
+
+                </h:panelGroup>
+            </ui:repeat>
+        </h:panelGroup>
+
+    </ui:define>
+
+</ui:composition>
